@@ -9,15 +9,15 @@ export const periods = [
     },
     graph: {
       year: {
-        January: 5000,
+        January: 10000,
         February: 500,
-        March: 5000,
-        April: 500,
-        May: 500,
+        March: 510,
+        April: 800,
+        May: 550,
         June: 5000,
         July: 5000,
         August: 500,
-        September: 500,
+        September: 200,
         October: 500,
         November: 4200,
         December: 3000,
@@ -73,7 +73,7 @@ export const monthesNames = Object.keys(graph.year);
 
 export const PeriodsNames = {
   [periodsNames[0]]: 'За последний год',
-  [periodsNames[1]]: 'За последние полгода',
+  [periodsNames[1]]: 'За последние 6 месяцев',
   [periodsNames[2]]: 'За последний месяц',
 };
 

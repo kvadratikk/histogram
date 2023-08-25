@@ -4,12 +4,14 @@ import Image from 'next/image';
 
 import { useState } from 'react';
 import { graph, periodsNames, periodsSums, PeriodsNames, MothesNames } from './data';
+import { findHeight } from './helpers/findHistogramHeight/findHistogramHeight';
+import Column from './Column/Column';
 
 const Histogram = () => {
   const [currentPeriodName, setCurrentPeriodName] = useState(periodsNames[0]);
   const [isPeriodsNamesOpen, setIsPeriodsNamesOpen] = useState(false);
 
-  const periodMonthes = Object.keys(graph[currentPeriodName as keyof typeof graph]);
+  const periodMonthes = Object.entries(graph[currentPeriodName as keyof typeof graph]);
 
   const handleSelectClick = () => {
     setIsPeriodsNamesOpen(!isPeriodsNamesOpen);
@@ -43,7 +45,7 @@ const Histogram = () => {
 
         <div
           className={`w-full outline -outline-offset-1 outline-2 outline-accent rounded-[28px] bg-white transition-opacity duration-300 ${
-            isPeriodsNamesOpen ? 'absolute visible opacity-1' : 'invisible opacity-0 h-0'
+            isPeriodsNamesOpen ? 'absolute visible opacity-100' : 'invisible opacity-0 h-0'
           }`}
         >
           {periodsNames
@@ -70,21 +72,10 @@ const Histogram = () => {
           ))}
         </div>
 
-        <div className="flex flex-col flex-1">
-          <div className="flex-1">fe</div>
-          <div className="flex justify-between">
-            {periodMonthes.map((month) => {
-              const numberMonth = Number(month);
-              const isNumberMonth = !Number.isNaN(numberMonth);
-              const isHiddenMonth = isNumberMonth && numberMonth % 5 && numberMonth !== 1;
-
-              return (
-                <span key={month} className={`${isHiddenMonth ? 'hidden' : ''}`}>
-                  {isNumberMonth ? String(numberMonth).padStart(2, '0') : MothesNames[month]}
-                </span>
-              );
-            })}
-          </div>
+        <div className="flex-1 flex justify-between items-end">
+          {periodMonthes.map(([month, monthSum], idx) => (
+            <Column month={month} monthSum={monthSum} key={month + currentPeriodName} />
+          ))}
         </div>
       </div>
     </>
