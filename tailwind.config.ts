@@ -24,9 +24,6 @@ const config: Config = {
         primary: '#000000',
         accent: '#000AFF',
       },
-      fontFamily: {
-        manrope: 'Manrope',
-      },
     },
   },
 };

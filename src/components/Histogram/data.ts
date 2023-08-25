@@ -1,8 +1,4 @@
-export enum PeriodsNames {
-  year = 'За последний год',
-  half_year = 'За последние полгода',
-  month = 'За последний меясц',
-}
+export const periodsSums = [10000, 5000, 2000, 1000, 500, 0];
 
 export const periods = [
   {
@@ -70,3 +66,28 @@ export const periods = [
     },
   },
 ];
+
+export const graph = periods[0].graph;
+export const periodsNames = Object.keys(graph);
+export const monthesNames = Object.keys(graph.year);
+
+export const PeriodsNames = {
+  [periodsNames[0]]: 'За последний год',
+  [periodsNames[1]]: 'За последние полгода',
+  [periodsNames[2]]: 'За последний месяц',
+};
+
+export const MothesNames = {
+  [monthesNames[0]]: 'Янв',
+  [monthesNames[1]]: 'Февр',
+  [monthesNames[2]]: 'Март',
+  [monthesNames[3]]: 'Апр',
+  [monthesNames[4]]: 'Май',
+  [monthesNames[5]]: 'Июнь',
+  [monthesNames[6]]: 'Июль',
+  [monthesNames[7]]: 'Авг',
+  [monthesNames[8]]: 'Сент',
+  [monthesNames[9]]: 'Окт',
+  [monthesNames[10]]: 'Нояб',
+  [monthesNames[11]]: 'Дек',
+};

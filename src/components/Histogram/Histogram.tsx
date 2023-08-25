@@ -3,21 +3,21 @@
 import Image from 'next/image';
 
 import { useState } from 'react';
-import { periods, PeriodsNames } from './data';
+import { graph, periodsNames, periodsSums, PeriodsNames, MothesNames } from './data';
 
 const Histogram = () => {
-  const periodsNames = Object.keys(periods[0].graph);
-
   const [currentPeriodName, setCurrentPeriodName] = useState(periodsNames[0]);
-  const [isPeriodsOpen, setIsPeriodsOpen] = useState(false);
+  const [isPeriodsNamesOpen, setIsPeriodsNamesOpen] = useState(false);
+
+  const periodMonthes = Object.keys(graph[currentPeriodName as keyof typeof graph]);
 
   const handleSelectClick = () => {
-    setIsPeriodsOpen(!isPeriodsOpen);
+    setIsPeriodsNamesOpen(!isPeriodsNamesOpen);
   };
 
-  const handleOptionClick = (period: PeriodsNames) => {
+  const handleOptionClick = (period: string) => {
     setCurrentPeriodName(period);
-    setIsPeriodsOpen(false);
+    setIsPeriodsNamesOpen(false);
   };
 
   return (
@@ -29,10 +29,10 @@ const Histogram = () => {
           onClick={handleSelectClick}
         >
           <span className="flex justify-between py-[9px] pl-[20px] pr-[16px] flex-1 leading-[30px] hover:text-accent trnsition-all duration-300">
-            {PeriodsNames[currentPeriodName as keyof typeof PeriodsNames]}
+            {PeriodsNames[currentPeriodName]}
 
             <Image
-              className={`transition-all duration-300 ${isPeriodsOpen ? '' : 'rotate-180'}`}
+              className={`transition-all duration-300 ${isPeriodsNamesOpen ? '' : 'rotate-180'}`}
               src="/icons/arrow.svg"
               alt=""
               width={24}
@@ -42,8 +42,8 @@ const Histogram = () => {
         </button>
 
         <div
-          className={`w-full outline -outline-offset-1 outline-2 outline-accent rounded-[28px] bg-white transition-[opacity] duration-300 ${
-            isPeriodsOpen ? 'absolute visible opacity-1' : 'invisible opacity-0 h-0'
+          className={`w-full outline -outline-offset-1 outline-2 outline-accent rounded-[28px] bg-white transition-opacity duration-300 ${
+            isPeriodsNamesOpen ? 'absolute visible opacity-1' : 'invisible opacity-0 h-0'
           }`}
         >
           {periodsNames
@@ -53,17 +53,40 @@ const Histogram = () => {
                 className="flex rounded-[28px] w-full text-left"
                 type="button"
                 key={name}
-                onClick={() => handleOptionClick(name as PeriodsNames)}
+                onClick={() => handleOptionClick(name)}
               >
                 <span className="pl-[20px] py-[9px] flex-1 leading-[30px] hover:text-accent trnsition-all duration-300">
-                  {PeriodsNames[name as keyof typeof PeriodsNames]}
+                  {PeriodsNames[name]}
                 </span>
               </button>
             ))}
         </div>
       </div>
 
-      <div className="bg-[#FF00F50D] h-[400px] rounded-[27px]">df</div>
+      <div className="flex bg-[#FF00F50D] h-[400px] rounded-[27px] p-[40px] text-[20px] leading-[30px] gap-[33px]">
+        <div className="flex flex-col h-full gap-5">
+          {periodsSums.map((periodSum) => (
+            <span key={periodSum}>{periodSum.toLocaleString('ru-RU')}</span>
+          ))}
+        </div>
+
+        <div className="flex flex-col flex-1">
+          <div className="flex-1">fe</div>
+          <div className="flex justify-between">
+            {periodMonthes.map((month) => {
+              const numberMonth = Number(month);
+              const isNumberMonth = !Number.isNaN(numberMonth);
+              const isHiddenMonth = isNumberMonth && numberMonth % 5 && numberMonth !== 1;
+
+              return (
+                <span key={month} className={`${isHiddenMonth ? 'hidden' : ''}`}>
+                  {isNumberMonth ? String(numberMonth).padStart(2, '0') : MothesNames[month]}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     </>
   );
 };

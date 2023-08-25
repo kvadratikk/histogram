@@ -6,6 +6,6 @@
 @layer base {
   html,
   body {
-    @apply h-full text-primary box-content;
+    @apply h-full text-primary;
   }
 }
