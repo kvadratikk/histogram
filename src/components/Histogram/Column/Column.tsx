@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { MothesNames } from '../data';
-import { findHeight } from '../helpers/findHistogramHeight/findHistogramHeight';
+import { findColumnHeight } from '../helpers/findColumnHeight/findColumnHeight';
 
 interface ColumnProps {
   month: string;
@@ -15,7 +15,7 @@ const Column = ({ month, monthSum }: ColumnProps) => {
   const [height, setHeight] = useState(0);
 
   useEffect(() => {
-    let timerId = setTimeout(() => setHeight(findHeight(monthSum)));
+    let timerId = setTimeout(() => setHeight(findColumnHeight(monthSum)));
 
     return () => {
       clearInterval(timerId);
@@ -27,7 +27,7 @@ const Column = ({ month, monthSum }: ColumnProps) => {
       <div className="flex flex-col-reverse relative">
         <div
           style={{ height }}
-          className={`peer mx-auto w-[16px] h-[100px] bg-accent rounded-[4px] hover:shadow-[0_0_8px_6px_rgba(0,10,255,0.15)] [transition:all_0.2s,height_0.5s_ease-out_0.3s]`}
+          className={`peer mx-auto w-[16px] h-[100px] bg-accent rounded-[4px] hover:shadow-[0_0_8px_6px_rgba(0,10,255,0.15)] [transition:all_0.2s,height_0.5s_ease-in_0.3s]`}
         />
 
         <div className="absolute bottom-[100%] right-[50%] translate-x-[50%] text-[16px] leading-[24px] bg-highlight rounded-[6px] px-[8px] mb-[4px] opacity-0 invisible peer-hover:visible peer-hover:h-auto peer-hover:opacity-100 transition-all duration-200">

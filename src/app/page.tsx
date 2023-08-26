@@ -6,7 +6,7 @@ import './globals.css';
 export default function Home() {
   return (
     <RootLayout>
-      <div className="container h-full flex flex-col justify-center">
+      <div className="container h-full flex flex-col justify-center relative">
         <Histogram />
       </div>
     </RootLayout>
